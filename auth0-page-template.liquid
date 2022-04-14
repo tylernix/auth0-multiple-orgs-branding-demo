@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="{{locale}}">
+  <head>
+    {%- auth0:head -%}
+    <style>
+        {% if application.name == "Moon App" %}
+          body {
+            background-image: url("http://localhost:3000/img/moon-landscape.jpg");
+            background-size:     cover;
+            background-repeat:   no-repeat;
+            background-position: center center;
+          }
+        {% elsif application.name == "Mars App" %}
+          body {
+            background-image: url("http://localhost:3001/img/mars-landscape.png");
+            background-size:     cover;
+            background-repeat:   no-repeat;
+            background-position: center center;
+          }
+        {% endif %}
+    </style>
+     <title>{{ prompt.screen.texts.pageTitle }}</title>
+  </head>
+  <body class="_widget-auto-layout">
+    {%- auth0:widget -%}
+  </body>
+  
+  <script>
+    {% if application.name == "Moon App" %}
+      document.getElementById("prompt-logo-center").src="http://localhost:3000/img/moon-logo.png";
+      document.querySelector("._widget button[type='submit']").style.background="#fde68a";
+    {% elsif application.name == "Mars App" %}
+      document.getElementById("prompt-logo-center").src="http://localhost:3001/img/mars-logo.png";
+      document.querySelector("._widget button[type='submit']").style.background="#2563eb";
+    {% endif %}
+  </script>
+
+  </html>
