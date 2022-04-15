@@ -34,6 +34,12 @@ resource "docker_image" "mars-app" {
   }
 }
 
+# resource "null_resource" "example1" {
+#   provisioner "local-exec" {
+#     command = "node -e 'console.log(crypto.randomBytes(32).toString('hex'))'"
+#   }
+# }
+
 resource "docker_container" "moon-app" {
   image = docker_image.moon-app.latest
   name  = "moon-app"
@@ -44,6 +50,7 @@ resource "docker_container" "moon-app" {
   env = [
     "AUTH0_CLIENT_ID=${auth0_client.moon-app.client_id}",
     "AUTH0_CLIENT_SECRET=${auth0_client.moon-app.client_secret}",
+    "AUTH0_BASE_URL=http://localhost:3000",
   ]
 }
 
@@ -57,6 +64,7 @@ resource "docker_container" "mars-app" {
   env = [
     "AUTH0_CLIENT_ID=${auth0_client.mars-app.client_id}",
     "AUTH0_CLIENT_SECRET=${auth0_client.mars-app.client_secret}",
+    "AUTH0_BASE_URL=http://localhost:3001",
   ]
 }
 
