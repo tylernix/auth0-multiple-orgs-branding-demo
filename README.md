@@ -2,7 +2,7 @@
 
 This Auth0 reference implementation uses terraform and docker to deploy two custom branded applications (moon-app & mars-app) which will use the same Auth0 universal login screen for both apps. You can use [Auth0 Universal Login Page Templates](https://auth0.com/docs/customize/universal-login-pages/universal-login-page-templates) to define the content displayed around the Universal Login widgets (e.g., the Login box, the MFA box). The same template is used for all pages, helping you implement a consistent, branded login experience across all B2B customers with less effort.
 
-[TODO: working gif of example]
+![auth0-multiple-orgs-branding-demo](https://user-images.githubusercontent.com/67964959/163833294-dbec8af8-9056-4400-8668-e47a1b548ba4.gif)
 
 ## Use Case
 There are multiple Business-to-Business (B2B) use case scenarios where users end up belonging to third-party organizations that have signed up for the services you provide. Your customers often require the need to customize the login experience based on the company's brand that initiated the login. If a user logs in from Company A's app, it should show the Company A's brand (logo, background image, and colors). If the user logs in from Company B's app, it will alternatively show Company B's logo, background image, and colors. 
