@@ -74,6 +74,12 @@ provider "auth0" {
   client_secret = var.auth0_client_secret
 }
 
+resource "auth0_tenant" "tenant" {
+    flags {
+        enable_client_connections = false
+    }
+}
+
 resource "auth0_client" "moon-app" {
   name                = "Moon App"
   description         = "App with Moon-style branding"
