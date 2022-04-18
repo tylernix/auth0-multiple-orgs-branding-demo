@@ -1,6 +1,8 @@
 variable "auth0_domain" {}
+variable "auth0_base_issuer_url" {}
 variable "auth0_client_id" {}
 variable "auth0_client_secret" {}
+variable "auth0_secret" {}
 
 
 terraform {
@@ -34,12 +36,6 @@ resource "docker_image" "mars-app" {
   }
 }
 
-# resource "null_resource" "example1" {
-#   provisioner "local-exec" {
-#     command = "node -e 'console.log(crypto.randomBytes(32).toString('hex'))'"
-#   }
-# }
-
 resource "docker_container" "moon-app" {
   image = docker_image.moon-app.latest
   name  = "moon-app"
@@ -51,6 +47,8 @@ resource "docker_container" "moon-app" {
     "AUTH0_CLIENT_ID=${auth0_client.moon-app.client_id}",
     "AUTH0_CLIENT_SECRET=${auth0_client.moon-app.client_secret}",
     "AUTH0_BASE_URL=http://localhost:3000",
+    "AUTH0_ISSUER_BASE_URL=${var.auth0_base_issuer_url}",
+    "AUTH0_SECRET=${var.auth0_secret}",
   ]
 }
 
@@ -65,6 +63,8 @@ resource "docker_container" "mars-app" {
     "AUTH0_CLIENT_ID=${auth0_client.mars-app.client_id}",
     "AUTH0_CLIENT_SECRET=${auth0_client.mars-app.client_secret}",
     "AUTH0_BASE_URL=http://localhost:3001",
+    "AUTH0_ISSUER_BASE_URL=${var.auth0_base_issuer_url}",
+    "AUTH0_SECRET=${var.auth0_secret}",
   ]
 }
 
@@ -102,11 +102,11 @@ resource "auth0_client" "mars-app" {
   }
 }
 
-resource "auth0_connection" "custom-branding-user-db" {
-  name     = "custom-branding-user-db"
+resource "auth0_connection" "multiple-orgs-branding-user-db" {
+  name     = "multiple-orgs-branding-user-db"
   strategy = "auth0"
   options {
-    password_policy        = "good"
+    password_policy = "good"
   }
   enabled_clients = [auth0_client.moon-app.id, auth0_client.mars-app.id]
 }
@@ -125,11 +125,3 @@ resource "auth0_branding" "custom-branding" {
         body = data.local_file.auth0-page-template.content
     }
 }
-
-
-# resource "auth0_user" "custom-branding-example-user" {
-#   connection_name = auth0_connection.customer-branding-user-db.name
-#   email           = "user@example.com"
-#   email_verified  = true
-#   password        = "Password1!"
-# }
