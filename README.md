@@ -67,7 +67,7 @@ Terraform will create:
 
 ### Clean up
 
-You can run `terraform destroy -var-file="local.tfvars"` to delete everything configured in this demo from Auth0 and stop the docker containers running locally.
+When you are done with the demo, you can run `terraform destroy -var-file="local.tfvars"` to delete everything configured in this demo from Auth0 and stop the docker containers running locally.
 
 ## 🔎 Learn more
 
